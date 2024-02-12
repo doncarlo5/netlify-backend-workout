@@ -11,15 +11,15 @@ const SECRET_TOKEN = process.env.SECRET_TOKEN;
 
 router.post("/signup", async (req, res, next) => {
   try {
-    const first_name = req.body.first_name;
-    const last_name = req.body.last_name;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
     const email = req.body.email;
     const password = req.body.password;
 
     // const { email, password, first_name, last_name } = req.body
 
     // Check empty fields
-    if (!email || !password || !first_name || !last_name) {
+    if (!email || !password || !firstName || !lastName) {
       return res.status(400).json({ message: "Please fill all fields" });
     }
 
@@ -35,8 +35,8 @@ router.post("/signup", async (req, res, next) => {
 
     // Create the user
     const newUser = await User.create({
-      first_name,
-      last_name,
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
     });
@@ -99,3 +99,34 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
 });
 
 module.exports = router;
+
+// Update user
+
+router.patch("/settings", isAuthenticated, async (req, res, next) => {
+  try {
+    const { firstName, lastName, email, password } = req.body;
+    const updateUser = {
+      firstName,
+      lastName,
+      email,
+    };
+
+    const existingUser = await User.findOne({ email });
+    if (
+      existingUser &&
+      existingUser._id.toString() !== req.user._id.toString()
+    ) {
+      // If the email already exists for another user, return an error
+      return res.status(400).json({ message: "Email already in use" });
+    }
+
+    // Update the user
+    const updatedUser = await User.findByIdAndUpdate(req.user._id, updateUser, {
+      new: true,
+    });
+
+    res.status(200).json({ message: "User updated", results: { updatedUser } });
+  } catch (error) {
+    next(error);
+  }
+});

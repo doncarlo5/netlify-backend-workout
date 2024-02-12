@@ -6,10 +6,10 @@ const sessionSchema = new Schema(
       type: Date,
       required: [true, "Date is required"],
     },
-    body_weight: {
-      type: Number,
-      required: [true, "Weight is required."],
-    },
+    // body_weight: {
+    //   type: Number,
+    //   // required: [true, "Weight is required."],
+    // },
     // comment: {
     //   type: String,
     // },
@@ -17,7 +17,7 @@ const sessionSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    session_index: { type: Number, default: 1 },
+    // session_index: { type: Number, default: 1 },
     exercise_ids: [{ type: Schema.Types.ObjectId, ref: "Exercise" }], // Array of exercise IDs
   },
   {
