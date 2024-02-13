@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const sessionSchema = new Schema(
   {
-    date: {
+    dateSession: {
       type: Date,
       required: [true, "Date is required"],
     },
@@ -17,8 +17,7 @@ const sessionSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    // session_index: { type: Number, default: 1 },
-    exercise_ids: [{ type: Schema.Types.ObjectId, ref: "Exercise" }], // Array of exercise IDs
+    // session_index: { type: Number, default: 1
   },
   {
     timestamps: true, // Adds `createdAt` and `updatedAt` properties
