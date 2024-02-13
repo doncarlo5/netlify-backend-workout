@@ -98,8 +98,6 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   return res.status(200).json(req.user);
 });
 
-module.exports = router;
-
 // Update user
 
 router.patch("/settings", isAuthenticated, async (req, res, next) => {
@@ -130,3 +128,5 @@ router.patch("/settings", isAuthenticated, async (req, res, next) => {
     next(error);
   }
 });
+
+module.exports = router;
