@@ -7,7 +7,7 @@ const isAuthenticated = async (req, res, next) => {
     const authorizationHeader = req.headers.authorization;
 
     if (!authorizationHeader) {
-      return res.statuts(401).json({ message: "No authorization found" });
+      return res.status(401).json({ message: "No authorization found" });
     }
 
     const token = authorizationHeader.replace("Bearer ", "");
