@@ -1,0 +1,78 @@
+const ExerciseType = require("../models/ExerciseType.model");
+
+const router = require("express").Router();
+
+// Get all exercise types
+
+router.get("/", async (req, res, next) => {
+  try {
+    const exerciseUsers = await ExerciseType.find();
+    res.json(exerciseUsers);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Create an exercise type
+
+router.post("/", async (req, res, next) => {
+  try {
+    const { name, type, advice, timer, repRange1, repRange2, repRange3 } =
+      req.body;
+
+    if (
+      !name ||
+      !type ||
+      !advice ||
+      !timer ||
+      !repRange1 ||
+      !repRange2 ||
+      !repRange3
+    ) {
+      return res.status(400).json({ message: "Missing fields" });
+    }
+
+    if (name !== typeof String) {
+      return res.status(400).json({ message: "Name should be a string" });
+    }
+    if (type !== typeof String) {
+      return res.status(400).json({ message: "Type should be a string" });
+    }
+    if (advice !== typeof String) {
+      return res.status(400).json({ message: "Advice should be a string" });
+    }
+    if (timer !== typeof Number) {
+      return res.status(400).json({ message: "Timer should be a number" });
+    }
+    if (repRange1 !== typeof Number) {
+      return res.status(400).json({ message: "RepRange1 should be a number" });
+    }
+    if (repRange2 !== typeof Number) {
+      return res.status(400).json({ message: "RepRange2 should be a number" });
+    }
+    if (repRange3 !== typeof Number) {
+      return res.status(400).json({ message: "RepRange3 should be a number" });
+    }
+
+    const createExerciseType = await ExerciseType.create({
+      name: name,
+      type: type,
+      advice: advice,
+      timer: timer,
+      repRange1: repRange1,
+      repRange2: repRange2,
+      repRange3: repRange3,
+      owner: req.user._id,
+    });
+
+    res.status(201).json({ id: createExerciseType._id });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// add delete
+
+// add update
+
+module.exports = router;
