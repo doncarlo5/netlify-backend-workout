@@ -13,13 +13,23 @@ const ExerciseUser = require("../models/exercise-user.model");
   const exercisesUserToCreate = [
     {
       date: new Date(),
-      weight: [60, 50, 40],
-      rep: [8, 6, 4],
+      weight: [25, 23, 20],
+      rep: [4, 7, 8],
     },
     {
       date: new Date(),
-      weight: [70, 80, 90],
-      rep: [3, 4, 5],
+      weight: [12, 10, 8],
+      rep: [10, 9, 8],
+    },
+    {
+      date: new Date(),
+      weight: [33, 30, 28],
+      rep: [9, 10, 12],
+    },
+    {
+      date: new Date(),
+      weight: [20, 17, 15],
+      rep: [3, 7, 8],
     },
   ];
 
