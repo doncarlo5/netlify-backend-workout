@@ -3,20 +3,15 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
-const isAuthenticated = require("../middleware/isAuthenticated");
+const isAuthenticated = require("../middleware/is-authenticated");
 const salt = 10;
 const SECRET_TOKEN = process.env.SECRET_TOKEN;
 
-// Sign Up
+//* Sign Up
 
 router.post("/signup", async (req, res, next) => {
   try {
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const password = req.body.password;
-
-    // const { email, password, first_name, last_name } = req.body
+    const { firstName, lastName, email, password } = req.body;
 
     // Check empty fields
     if (!email || !password || !firstName || !lastName) {
@@ -41,20 +36,18 @@ router.post("/signup", async (req, res, next) => {
       password: hashedPassword,
     });
 
-    return res.status(201).json(newUser, { message: "User created" });
+    return res.status(201).json({ newUser, message: "User created" });
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 });
 
-// Log In
+//* Log In
 
 router.post("/login", async (req, res, next) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
-
-    // const { email, password } = req.body;
 
     // Check empty fields
     if (!email || !password) {
@@ -88,17 +81,17 @@ router.post("/login", async (req, res, next) => {
 
     return res.status(200).json({ token });
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 });
 
-// Verify Token
+//* Verify Token
 
 router.get("/verify", isAuthenticated, (req, res, next) => {
   return res.status(200).json(req.user);
 });
 
-// Update user
+//* Update user
 
 router.patch("/settings", isAuthenticated, async (req, res, next) => {
   try {
