@@ -1,6 +1,6 @@
-const ExerciseUser = require("../models/ExerciseUser.model");
+const ExerciseUser = require("../models/exercise-user.model");
 const isAuthenticated = require("../middleware/isAuthenticated");
-const ExerciseType = require("../models/ExerciseType.model");
+const ExerciseType = require("../models/exercise-type.model");
 
 const router = require("express").Router();
 

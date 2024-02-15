@@ -5,9 +5,9 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 const password = "password";
-const ExerciseType = require("../models/ExerciseType.model");
+const ExerciseType = require("../models/exercise-type.model");
 
-const ExerciseUser = require("../models/ExerciseUser.model");
+const ExerciseUser = require("../models/exercise-user.model");
 
 (async function () {
   const exercisesUserToCreate = [

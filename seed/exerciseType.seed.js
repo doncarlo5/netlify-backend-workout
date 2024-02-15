@@ -1,7 +1,7 @@
 require("dotenv/config");
 require("../db/db.index");
 
-const ExerciseType = require("../models/ExerciseType.model");
+const ExerciseType = require("../models/exercise-type.model");
 
 const exercisesTypeToCreate = [
   {

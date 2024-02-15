@@ -1,4 +1,4 @@
-const ExerciseType = require("../models/ExerciseType.model");
+const ExerciseType = require("../models/exercise-type.model");
 
 const router = require("express").Router();
 

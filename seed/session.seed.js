@@ -1,7 +1,7 @@
 require("dotenv/config");
 require("../db/db.index");
 
-const ExerciseUser = require("../models/ExerciseUser.model");
+const ExerciseUser = require("../models/exercise-user.model");
 
 const User = require("../models/User.model");
 
