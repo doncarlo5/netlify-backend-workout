@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const isAuthenticated = require("../middleware/isAuthenticated");
+const isAuthenticated = require("../middleware/is-authenticated");
 
 router.get("/", (req, res, next) => {
   res.json("All good in here");
@@ -13,6 +13,6 @@ router.use(
   require("./exercise-user.routes")
 );
 
-router.use("/exercise-type", require("./exercise-type.routes")); //! Should be in exercise user
+router.use("/exercise-type", require("./exercise-type.routes"));
 
 module.exports = router;
