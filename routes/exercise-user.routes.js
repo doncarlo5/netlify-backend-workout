@@ -6,7 +6,7 @@ const router = require("express").Router();
 
 // Get all exerciseUser by his owner
 
-router.get("/", isAuthenticated, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const exerciseUsers = await ExerciseUser.find({
       owner: req.user._id,
@@ -21,14 +21,15 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
+    console.log(req.params.id, req.user._id);
     const oneExerciseUser = await ExerciseUser.findOne({
-      _id: req.params.id,
       owner: req.user._id,
-    });
+      _id: req.params.id,
+    }).populate("type");
 
     if (!oneExerciseUser) {
       return res
-        .status(404)
+        .status(400)
         .json({ message: "User Exercise - Unauthorized or not found" });
     }
     res.json(oneExerciseUser);
@@ -59,6 +60,7 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
+    console.log("REQ BODY 👋", req.body);
     const { type, weight, rep } = req.body;
 
     if (!type || !weight || !rep) {
@@ -71,18 +73,6 @@ router.put("/:id", async (req, res, next) => {
       return res
         .status(400)
         .json({ message: "Trying to update - Weight and Rep not matching" });
-    }
-
-    if (weight !== typeof Number || rep !== typeof Number) {
-      return res
-        .status(400)
-        .json({ message: "Trying to update - Weight and Rep not a number" });
-    }
-
-    if (weight.length === 3 || rep.length === 3) {
-      return res.status(400).json({
-        message: "Trying to update - Weight and Rep should have 3 values each",
-      });
     }
 
     const updateExerciseUser = await ExerciseUser.findOneAndUpdate(

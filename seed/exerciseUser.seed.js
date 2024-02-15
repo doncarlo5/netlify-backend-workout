@@ -2,8 +2,9 @@ require("dotenv/config");
 require("../db/db.index");
 const Session = require("./../models/Session.model");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
-
+const password = "password";
 const ExerciseType = require("../models/ExerciseType.model");
 
 const ExerciseUser = require("../models/ExerciseUser.model");
@@ -23,6 +24,13 @@ const ExerciseUser = require("../models/ExerciseUser.model");
   ];
 
   try {
+    await User.deleteMany();
+    await User.create({
+      email: "pro.julien.thomas@gmail.com",
+      firstName: "Julien",
+      lastName: "THOMAS",
+      password: bcrypt.hashSync(password, 10),
+    });
     await ExerciseUser.deleteMany({});
     const user = await User.findOne({ email: "pro.julien.thomas@gmail.com" });
 
