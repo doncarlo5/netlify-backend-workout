@@ -32,26 +32,12 @@ router.post("/", async (req, res, next) => {
       return res.status(400).json({ message: "Missing fields" });
     }
 
-    if (name !== typeof String) {
+    if (name || type || advice !== typeof String) {
       return res.status(400).json({ message: "Name should be a string" });
     }
-    if (type !== typeof String) {
-      return res.status(400).json({ message: "Type should be a string" });
-    }
-    if (advice !== typeof String) {
-      return res.status(400).json({ message: "Advice should be a string" });
-    }
-    if (timer !== typeof Number) {
+
+    if (timer || repRange1 || repRange2 || repRange3 !== typeof Number) {
       return res.status(400).json({ message: "Timer should be a number" });
-    }
-    if (repRange1 !== typeof Number) {
-      return res.status(400).json({ message: "RepRange1 should be a number" });
-    }
-    if (repRange2 !== typeof Number) {
-      return res.status(400).json({ message: "RepRange2 should be a number" });
-    }
-    if (repRange3 !== typeof Number) {
-      return res.status(400).json({ message: "RepRange3 should be a number" });
     }
 
     const createExerciseType = await ExerciseType.create({
