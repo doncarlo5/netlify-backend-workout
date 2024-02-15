@@ -1,10 +1,10 @@
 const ExerciseUser = require("../models/exercise-user.model");
-const isAuthenticated = require("../middleware/isAuthenticated");
+const isAuthenticated = require("../middleware/is-authenticated");
 const ExerciseType = require("../models/exercise-type.model");
 
 const router = require("express").Router();
 
-// Get all exerciseUser by his owner
+// Get all exercise-user by his ID
 
 router.get("/", async (req, res, next) => {
   try {
@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Get one exerciseUser by ID
+// Get one exercise-user by his ID
 
 router.get("/:id", async (req, res, next) => {
   try {
@@ -38,7 +38,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// Create an exerciseUser
+// Create an exercise-user
 
 router.post("/", async (req, res, next) => {
   try {
@@ -56,7 +56,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// Update an exerciseUser
+// Update an exercise-user
 
 router.put("/:id", async (req, res, next) => {
   try {
@@ -90,7 +90,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-// Delete an exerciseUser
+// Delete an exercise-user
 
 router.delete("/:id", async (req, res, next) => {
   try {
