@@ -1,6 +1,6 @@
 require("dotenv/config");
 require("../db/db.index");
-const Session = require("./../models/Session.model");
+const Session = require("../models/Session.model");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
