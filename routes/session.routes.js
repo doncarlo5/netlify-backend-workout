@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Session = require("../models/Session.model");
-const isAuthenticated = require("../middleware/isAuthenticated");
+const isAuthenticated = require("../middleware/is-authenticated");
 
 // Get all sessions by user
 
