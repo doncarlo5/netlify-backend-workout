@@ -2,7 +2,7 @@
 // https://www.npmjs.com/package/dotenv
 require("dotenv").config();
 
-// ℹ️ Connects to the database
+// Connect to the database
 require("./db/db.index");
 
 // Handles http requests (express is node js framework)
@@ -11,14 +11,14 @@ const express = require("express");
 
 const app = express();
 
-// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
+// This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config/config.index")(app);
 
-// 👇 Start handling routes here
+// Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 
-// ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
+// To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling/error-handling.index")(app);
 
 module.exports = app;
