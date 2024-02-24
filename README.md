@@ -25,4 +25,4 @@ A React app to track your progress at the gym for specific exercises.
 # 🌐 Credits
 
 - Shadcn : [Website](https://ui.shadcn.com/)
-- Workout Journal Backend : [GitHub Repo](https://github.com/doncarlo5/workout-journal-backend)
+- Workout Journal Frontend : [GitHub Repo](https://github.com/doncarlo5/workout-journal-frontend)
