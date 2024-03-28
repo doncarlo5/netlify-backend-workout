@@ -1,8 +1,8 @@
+const router = require("express").Router();
+
 const ExerciseUser = require("../models/exercise-user.model");
 const isAuthenticated = require("../middleware/is-authenticated");
 const ExerciseType = require("../models/exercise-type.model");
-
-const router = require("express").Router();
 
 // Get all exercise-user by his ID
 
