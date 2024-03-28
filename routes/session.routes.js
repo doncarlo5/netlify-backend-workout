@@ -6,9 +6,8 @@ const isAuthenticated = require("../middleware/is-authenticated");
 
 router.get("/", isAuthenticated, async (req, res, next) => {
   try {
-    console.log("👋 Hello");
     const session = await Session.find({ owner: req.user._id }).populate(
-      "ExerciseUser"
+      "exercise_user_list"
     );
     res.json(session);
   } catch (error) {
@@ -21,7 +20,7 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const session = await Session.findOne({ _id: req.params.id }).populate(
-      "exerciseUser_ids"
+      "exercise_user_list"
     );
     res.json(session);
   } catch (error) {
@@ -34,8 +33,10 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", isAuthenticated, async (req, res, next) => {
   try {
     const createSession = await Session.create({
-      dateSession: req.body.dateSession,
-      exerciseUser_ids: req.body.exerciseUser_ids,
+      date_session: req.body.date_session,
+      body_weight: req.body.body_weight,
+      exercise_user_list: req.body.exercise_user_list,
+      isDone: req.body.isDone,
       owner: req.user._id,
     });
     res.json(createSession);
@@ -48,17 +49,19 @@ router.post("/", isAuthenticated, async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    let { dateSession, exerciseUser_ids } = req.body;
+    let { date_session, body_weight, exercise_user_list, isDone } = req.body;
 
-    if (!dateSession || !exerciseUser_ids) {
+    if (!date_session || !body_weight || !exercise_user_list || !isDone) {
       return res.status(400).json({ message: "Missing fields" });
     }
 
     const updateSession = await Session.findOneAndUpdate(
       { _id: req.params.id },
       {
-        dateSession,
-        exerciseUser_ids,
+        date_session,
+        body_weight,
+        exercise_user_list,
+        isDone,
       },
       { new: true }
     );
