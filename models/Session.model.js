@@ -2,25 +2,25 @@ const { Schema, model } = require("mongoose");
 
 const sessionSchema = new Schema(
   {
-    dateSession: {
-      type: Date,
-      required: [true, "Date is required"],
+    date_session: { type: Date, default: Date.now },
+    body_weight: {
+      type: Number,
+      required: true,
     },
-    // body_weight: {
-    //   type: Number,
-    //   // required: [true, "Weight is required."],
-    // },
-    // comment: {
-    //   type: String,
-    // },
+    exercise_user_list: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "ExerciseUser",
+      },
+    ],
+    isDone: { type: Boolean, default: false },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    // session_index: { type: Number, default: 1
   },
   {
-    timestamps: true, // Adds `createdAt` and `updatedAt` properties
+    timestamps: true,
   }
 );
 
