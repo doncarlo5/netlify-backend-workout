@@ -1,37 +1,44 @@
 require("dotenv/config");
 require("../db/db.index");
+const password = "password";
+const bcrypt = require("bcrypt");
 
-const ExerciseUser = require("../models/exercise-user.model");
-
-const User = require("../models/User.model");
-
+const User = require("../models/user.model");
 const mongoose = require("mongoose");
-const Session = require("../models/Session.model");
+const Session = require("../models/session.model");
 
 (async function () {
   const sessionToCreate = [
     {
-      dateSession: new Date(),
-      exerciseUser_ids: [],
+      date_session: new Date(),
+      body_weight: 70,
+      exercise_user_list: [],
+      isDone: false,
+    },
+    {
+      date_session: new Date(),
+      body_weight: 69,
+      exercise_user_list: [],
+      isDone: false,
     },
   ];
 
   try {
+    await User.deleteMany();
     await Session.deleteMany({});
-
-    const exercices = await ExerciseUser.find({});
+    await User.create({
+      email: "pro.julien.thomas@gmail.com",
+      firstName: "Julien",
+      lastName: "THOMAS",
+      password: bcrypt.hashSync(password, 10),
+    });
 
     const user = await User.findOne({ email: "pro.julien.thomas@gmail.com" });
 
     sessionToCreate[0].owner = user;
-    sessionToCreate[0].exerciseUser_ids.push(exercices[0]);
-    sessionToCreate[0].exerciseUser_ids.push(exercices[1]);
+    sessionToCreate[1].owner = user;
 
-    for (const sessionElement of sessionToCreate) {
-      await Session.create(sessionElement);
-    }
-
-    // console.log(allUsers)
+    await Session.create(sessionToCreate);
   } catch (error) {
     console.log(error);
   } finally {
