@@ -1,15 +1,16 @@
 const router = require("express").Router();
-const Session = require("../models/Session.model");
+const Session = require("../models/session.model");
 const isAuthenticated = require("../middleware/is-authenticated");
 
 // Get all sessions by user
 
-router.get("/sessions", isAuthenticated, async (req, res, next) => {
+router.get("/", isAuthenticated, async (req, res, next) => {
   try {
-    const sessions = await Session.find({ owner: req.user._id }).populate(
-      "exerciseUser_ids"
+    console.log("👋 Hello");
+    const session = await Session.find({ owner: req.user._id }).populate(
+      "ExerciseUser"
     );
-    res.json(sessions);
+    res.json(session);
   } catch (error) {
     next(error);
   }
@@ -17,7 +18,7 @@ router.get("/sessions", isAuthenticated, async (req, res, next) => {
 
 // Get one session by ID
 
-router.get("/sessions/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const session = await Session.findOne({ _id: req.params.id }).populate(
       "exerciseUser_ids"
@@ -30,7 +31,7 @@ router.get("/sessions/:id", async (req, res, next) => {
 
 // Create a session
 
-router.post("/sessions", isAuthenticated, async (req, res, next) => {
+router.post("/", isAuthenticated, async (req, res, next) => {
   try {
     const createSession = await Session.create({
       dateSession: req.body.dateSession,
@@ -45,7 +46,7 @@ router.post("/sessions", isAuthenticated, async (req, res, next) => {
 
 // Update a session
 
-router.put("/sessions/:id", async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
     let { dateSession, exerciseUser_ids } = req.body;
 
@@ -69,7 +70,7 @@ router.put("/sessions/:id", async (req, res, next) => {
 
 // Delete a session
 
-router.delete("/sessions/:id", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const deleteSession = await Session.findOneAndDelete({
       _id: req.params.id,
