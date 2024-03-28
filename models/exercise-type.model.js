@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-// Define the Exercise schema
 const exerciseType = new Schema({
   name: {
     type: String,
