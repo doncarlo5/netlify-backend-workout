@@ -116,6 +116,8 @@ const ExerciseUser = require("../models/exercise-user.model");
     session2.exercise_user_list.push(exerciseUser8);
 
     await session2.save();
+
+    await Session.findByIdAndUpdate(session1._id, { isDone: true });
   } catch (error) {
     console.log(error);
   } finally {
