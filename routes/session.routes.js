@@ -34,6 +34,7 @@ router.post("/", isAuthenticated, async (req, res, next) => {
   try {
     const createSession = await Session.create({
       date_session: req.body.date_session,
+      type_session: req.body.type_session,
       body_weight: req.body.body_weight,
       exercise_user_list: req.body.exercise_user_list,
       isDone: req.body.isDone,
@@ -49,9 +50,21 @@ router.post("/", isAuthenticated, async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    let { date_session, body_weight, exercise_user_list, isDone } = req.body;
+    let {
+      date_session,
+      type_session,
+      body_weight,
+      exercise_user_list,
+      isDone,
+    } = req.body;
 
-    if (!date_session || !body_weight || !exercise_user_list || !isDone) {
+    if (
+      !date_session ||
+      !type_session ||
+      !body_weight ||
+      !exercise_user_list ||
+      !isDone
+    ) {
       return res.status(400).json({ message: "Missing fields" });
     }
 
@@ -59,6 +72,7 @@ router.put("/:id", async (req, res, next) => {
       { _id: req.params.id },
       {
         date_session,
+        type_session,
         body_weight,
         exercise_user_list,
         isDone,
