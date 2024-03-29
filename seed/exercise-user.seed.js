@@ -38,8 +38,8 @@ const ExerciseUser = require("../models/exercise-user.model");
 
     const user = await User.findOne({ email: "pro.julien.thomas@gmail.com" });
 
-    const session1 = await Session.findById("66056296fc0233d5e4d949eb");
-    const session2 = await Session.findById("66056296fc0233d5e4d949ec");
+    const session1 = await Session.findById("6606b7a794eaa4355ebbbefc");
+    const session2 = await Session.findById("6606b7a794eaa4355ebbbefd");
     const tractionType = await ExerciseType.findOne({ name: "Tractions" });
     const devCoucheInclineType = await ExerciseType.findOne({
       name: "Développé couché incliné",
