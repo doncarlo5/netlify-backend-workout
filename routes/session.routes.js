@@ -19,9 +19,13 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const session = await Session.findOne({ _id: req.params.id }).populate(
-      "exercise_user_list"
-    );
+    const session = await Session.findOne({ _id: req.params.id }).populate({
+      path: "exercise_user_list",
+      populate: {
+        path: "type",
+      },
+    });
+
     res.json(session);
   } catch (error) {
     next(error);
