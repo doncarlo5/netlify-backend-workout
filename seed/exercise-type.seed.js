@@ -25,8 +25,8 @@ const exercisesTypeToCreate = [
     type_session: "Upper A",
   },
   {
-    name: "Élévations frontales",
-    type: "free-weight",
+    name: "Poulis",
+    type: "cable",
     advice: "Pic de contraction 2 secondes",
     timer: 90,
     repRange1: "10-15",
