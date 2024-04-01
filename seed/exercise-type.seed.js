@@ -115,16 +115,6 @@ const exercisesTypeToCreate = [
     type_session: "Lower",
   },
   {
-    name: "Mollets",
-    type: "machine",
-    advice: "Contrôler la descente",
-    timer: 30,
-    repRange1: "8-12",
-    repRange2: "8-12",
-    repRange3: "8-12",
-    type_session: "Lower",
-  },
-  {
     name: "Overhead press",
     type: "bar",
     advice: "Serrer les fesses",
