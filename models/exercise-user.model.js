@@ -8,6 +8,10 @@ const exerciseUserSchema = new Schema(
     },
     weight: { type: [Number], required: true },
     rep: { type: [Number], required: true },
+    session: {
+      type: Schema.Types.ObjectId,
+      ref: "Session",
+    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
