@@ -23,6 +23,13 @@ const Session = require("../models/session.model");
       exercise_user_list: [],
       isDone: false,
     },
+    {
+      date_session: new Date(),
+      type_session: "Upper B",
+      body_weight: 69,
+      exercise_user_list: [],
+      isDone: false,
+    },
   ];
 
   try {
@@ -39,6 +46,7 @@ const Session = require("../models/session.model");
 
     sessionToCreate[0].owner = user;
     sessionToCreate[1].owner = user;
+    sessionToCreate[2].owner = user;
 
     await Session.create(sessionToCreate);
   } catch (error) {
