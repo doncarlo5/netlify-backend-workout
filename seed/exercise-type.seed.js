@@ -105,7 +105,7 @@ const exercisesTypeToCreate = [
     type_session: "Lower",
   },
   {
-    name: "Up right row penché",
+    name: "Upright row penché",
     type: "free-weight",
     advice: "Ne pas trop se pencher",
     timer: 60,
@@ -165,7 +165,7 @@ const exercisesTypeToCreate = [
     type_session: "Upper B",
   },
   {
-    name: "Up right row",
+    name: "Upright row",
     type: "free-weight",
     advice: "Serrer les omoplates",
     timer: 60,
