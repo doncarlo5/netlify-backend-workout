@@ -7,7 +7,7 @@ router.get("/", (req, res, next) => {
 
 router.use("/auth", require("./auth.routes"));
 
-router.use("/session", isAuthenticated, require("./session.routes"));
+router.use("/sessions", isAuthenticated, require("./sessions.routes"));
 
 router.use(
   "/exercise-user",
