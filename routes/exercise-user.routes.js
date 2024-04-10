@@ -120,7 +120,7 @@ router.put("/:id", async (req, res, next) => {
         .json({ message: "Trying to update - Weight and Rep not matching" });
     }
 
-    if (comment.length > 30) {
+    if (comment && comment.length > 30) {
       return res
         .status(400)
         .json({ message: "Comment should be less than 30 characters" });
