@@ -86,9 +86,9 @@ const ExerciseUser = require("../models/exercise-user.model");
 
     const user = await User.findOne({ email: "pro.julien.thomas@gmail.com" });
 
-    const session1 = await Session.findById("660ad93996979793c963ed44");
-    const session2 = await Session.findById("660ad93996979793c963ed45");
-    const session3 = await Session.findById("660ad93996979793c963ed46");
+    const session1 = await Session.findById("661659b1cb781a966471dab6");
+    const session2 = await Session.findById("661659b1cb781a966471dab7");
+    const session3 = await Session.findById("661659b1cb781a966471dab8");
 
     // identify the exercise type
     // session 1
