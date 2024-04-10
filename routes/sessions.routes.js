@@ -64,7 +64,7 @@ router.put("/:id", async (req, res, next) => {
       comment,
     } = req.body;
 
-    if (comment.lenght > 30) {
+    if (comment && comment.length > 30) {
       return res
         .status(400)
         .json({ message: "Comment should be less than 30 characters" });
@@ -84,10 +84,6 @@ router.put("/:id", async (req, res, next) => {
 
     if (!exercise_user_list) {
       return res.status(400).json({ message: "Missing exercise user list" });
-    }
-
-    if (!is_done) {
-      return res.status(400).json({ message: "Missing is_done" });
     }
 
     const updateSession = await Session.findOneAndUpdate(
