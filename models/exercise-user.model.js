@@ -5,6 +5,7 @@ const exerciseUserSchema = new Schema(
     type: {
       type: Schema.Types.ObjectId,
       ref: "ExerciseType",
+      index: true,
     },
     weight: { type: [Number], required: true },
     rep: { type: [Number], required: true },
@@ -16,6 +17,7 @@ const exerciseUserSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    comment: { type: String, maxLength: 30 },
   },
   {
     timestamps: true,
