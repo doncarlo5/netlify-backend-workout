@@ -6,12 +6,19 @@ const router = require("express").Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const exerciseUsers = await ExerciseType.find();
+    const typeSession = req.query.type_session;
+    let query = {};
+    if (typeSession) {
+      query = { type_session: typeSession };
+    }
+    const exerciseUsers = await ExerciseType.find(query);
     res.json(exerciseUsers);
   } catch (error) {
     next(error);
   }
 });
+
+//
 
 // Create an exercise type
 

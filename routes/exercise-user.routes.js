@@ -6,12 +6,45 @@ const ExerciseType = require("../models/exercise-type.model");
 
 // Get all exercise-user by his ID
 
+// router.get("/", async (req, res, next) => {
+//   try {
+//     const exerciseUsers = await ExerciseUser.find({
+//       owner: req.user._id,
+//     }).populate("type");
+//     res.json(exerciseUsers);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// Get one last exercise-user by his ID and his type
+
+// url : /exercise-user/last?exercise_name=Tractions
+
 router.get("/", async (req, res, next) => {
   try {
-    const exerciseUsers = await ExerciseUser.find({
-      owner: req.user._id,
-    }).populate("type");
-    res.json(exerciseUsers);
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    const type = req.query.type;
+    const sort = req.query.sort || "-createdAt";
+
+    const query = { owner: req.user._id };
+    if (type) {
+      query.type = type;
+    }
+
+    // get sort by if negative then desc else asc
+
+    const sortField = sort[0] === "-" ? sort.substring(1) : sort;
+    const sortOrder = sort[0] === "-" ? "desc" : "asc";
+
+    const exercises = await ExerciseUser.find(query)
+      .populate("type")
+      .skip(page * limit)
+      .limit(limit)
+      .sort({ [sortField]: sortOrder });
+
+    res.json(exercises);
   } catch (error) {
     next(error);
   }

@@ -41,7 +41,7 @@ router.post("/", isAuthenticated, async (req, res, next) => {
       type_session: req.body.type_session,
       body_weight: req.body.body_weight,
       exercise_user_list: req.body.exercise_user_list,
-      isDone: req.body.isDone,
+      is_done: req.body.is_done,
       owner: req.user._id,
     });
     res.json(createSession);
@@ -59,17 +59,27 @@ router.put("/:id", async (req, res, next) => {
       type_session,
       body_weight,
       exercise_user_list,
-      isDone,
+      is_done,
     } = req.body;
 
-    if (
-      !date_session ||
-      !type_session ||
-      !body_weight ||
-      !exercise_user_list ||
-      !isDone
-    ) {
-      return res.status(400).json({ message: "Missing fields" });
+    if (!date_session) {
+      return res.status(400).json({ message: "Missing date session" });
+    }
+
+    if (!type_session) {
+      return res.status(400).json({ message: "Missing type session" });
+    }
+
+    if (!body_weight) {
+      return res.status(400).json({ message: "Missing body weight" });
+    }
+
+    if (!exercise_user_list) {
+      return res.status(400).json({ message: "Missing exercise user list" });
+    }
+
+    if (!is_done) {
+      return res.status(400).json({ message: "Missing is_done" });
     }
 
     const updateSession = await Session.findOneAndUpdate(
@@ -79,7 +89,7 @@ router.put("/:id", async (req, res, next) => {
         type_session,
         body_weight,
         exercise_user_list,
-        isDone,
+        is_done,
       },
       { new: true }
     );
