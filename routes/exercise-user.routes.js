@@ -75,12 +75,24 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { type, weight, rep } = req.body;
+    const { type, weight, rep, comment } = req.body;
+
+    if (comment !== typeof String) {
+      return res.status(400).json({ message: "Comment should be a string" });
+    }
+
+    if (comment.length > 30) {
+      return res
+        .status(400)
+        .json({ message: "Comment should be less than 30 characters" });
+    }
+
     const createExerciseUser = await ExerciseUser.create({
       date: new Date(),
       type,
       weight: weight,
       rep: rep,
+      comment: comment,
       owner: req.user._id,
     });
     res.status(201).json({ id: createExerciseUser._id });
@@ -94,7 +106,7 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     console.log("REQ BODY 👋", req.body);
-    const { type, weight, rep } = req.body;
+    const { type, weight, rep, comment } = req.body;
 
     if (!type || !weight || !rep) {
       return res
@@ -108,12 +120,19 @@ router.put("/:id", async (req, res, next) => {
         .json({ message: "Trying to update - Weight and Rep not matching" });
     }
 
+    if (comment.length > 30) {
+      return res
+        .status(400)
+        .json({ message: "Comment should be less than 30 characters" });
+    }
+
     const updateExerciseUser = await ExerciseUser.findOneAndUpdate(
       { _id: req.params.id },
       {
         type,
         weight,
         rep,
+        comment,
       },
       { new: true }
     );
