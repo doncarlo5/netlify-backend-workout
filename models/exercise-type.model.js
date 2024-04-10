@@ -37,7 +37,6 @@ const exerciseType = new Schema({
   },
 });
 
-// Create the Exercise model
 const ExerciseType = model("ExerciseType", exerciseType);
 
 module.exports = ExerciseType;
