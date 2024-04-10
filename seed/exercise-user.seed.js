@@ -277,9 +277,9 @@ const ExerciseUser = require("../models/exercise-user.model");
 
     await session3.save();
 
-    await Session.findByIdAndUpdate(session1._id, { isDone: true });
-    await Session.findByIdAndUpdate(session2._id, { isDone: true });
-    await Session.findByIdAndUpdate(session3._id, { isDone: true });
+    await Session.findByIdAndUpdate(session1._id, { is_done: true });
+    await Session.findByIdAndUpdate(session2._id, { is_done: true });
+    await Session.findByIdAndUpdate(session3._id, { is_done: true });
   } catch (error) {
     console.log(error);
   } finally {
