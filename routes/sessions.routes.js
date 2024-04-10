@@ -42,6 +42,7 @@ router.post("/", isAuthenticated, async (req, res, next) => {
       body_weight: req.body.body_weight,
       exercise_user_list: req.body.exercise_user_list,
       is_done: req.body.is_done,
+      comment: req.body.comment,
       owner: req.user._id,
     });
     res.json(createSession);
@@ -60,7 +61,14 @@ router.put("/:id", async (req, res, next) => {
       body_weight,
       exercise_user_list,
       is_done,
+      comment,
     } = req.body;
+
+    if (comment.lenght > 30) {
+      return res
+        .status(400)
+        .json({ message: "Comment should be less than 30 characters" });
+    }
 
     if (!date_session) {
       return res.status(400).json({ message: "Missing date session" });
@@ -90,6 +98,7 @@ router.put("/:id", async (req, res, next) => {
         body_weight,
         exercise_user_list,
         is_done,
+        comment,
       },
       { new: true }
     );
