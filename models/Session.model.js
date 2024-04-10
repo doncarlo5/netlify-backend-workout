@@ -18,11 +18,12 @@ const sessionSchema = new Schema(
         ref: "ExerciseUser",
       },
     ],
-    isDone: { type: Boolean, default: false },
+    is_done: { type: Boolean, default: false },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    comment: { type: String },
   },
   {
     timestamps: true,
