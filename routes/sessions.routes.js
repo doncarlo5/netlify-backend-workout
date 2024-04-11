@@ -6,10 +6,26 @@ const isAuthenticated = require("../middleware/is-authenticated");
 
 router.get("/", isAuthenticated, async (req, res, next) => {
   try {
-    const session = await Session.find({ owner: req.user._id }).populate(
-      "exercise_user_list"
-    );
-    res.json(session);
+    // add page, limit, sort
+
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    const sort = req.query.sort || "-createdAt";
+
+    const query = { owner: req.user._id };
+
+    // get sort by if negative then desc else asc
+
+    const sortField = sort[0] === "-" ? sort.substring(1) : sort;
+    const sortOrder = sort[0] === "-" ? "desc" : "asc";
+
+    const sessions = await Session.find(query)
+      .populate("exercise_user_list")
+      .skip(page * limit)
+      .limit(limit)
+      .sort({ [sortField]: sortOrder });
+
+    res.json(sessions);
   } catch (error) {
     next(error);
   }
