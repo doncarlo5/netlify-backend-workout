@@ -77,11 +77,7 @@ router.post("/", async (req, res, next) => {
   try {
     const { type, weight, rep, comment } = req.body;
 
-    if (comment !== typeof String) {
-      return res.status(400).json({ message: "Comment should be a string" });
-    }
-
-    if (comment.length > 30) {
+    if (comment && comment.length > 30) {
       return res
         .status(400)
         .json({ message: "Comment should be less than 30 characters" });
