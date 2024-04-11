@@ -14,21 +14,21 @@ const Session = require("../models/session.model");
       type_session: "Upper A",
       body_weight: 70,
       exercise_user_list: [],
-      isDone: false,
+      is_done: false,
     },
     {
       date_session: new Date(),
       type_session: "Lower",
       body_weight: 69,
       exercise_user_list: [],
-      isDone: false,
+      is_done: false,
     },
     {
       date_session: new Date(),
       type_session: "Upper B",
       body_weight: 69,
       exercise_user_list: [],
-      isDone: false,
+      is_done: false,
     },
   ];
 
