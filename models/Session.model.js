@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const sessionSchema = new Schema(
   {
-    date_session: { type: Date, default: Date.now },
+    date_session: { type: Date, required: true },
     type_session: {
       type: String,
       enum: ["Upper A", "Lower", "Upper B", "Other"],
