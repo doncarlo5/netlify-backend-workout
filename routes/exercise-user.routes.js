@@ -75,7 +75,7 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { type, weight, rep, comment } = req.body;
+    const { type, weight, rep, comment, session } = req.body;
 
     if (comment && comment.length > 30) {
       return res
@@ -84,12 +84,12 @@ router.post("/", async (req, res, next) => {
     }
 
     const createExerciseUser = await ExerciseUser.create({
-      date: new Date(),
       type,
       weight: weight,
       rep: rep,
       comment: comment,
       owner: req.user._id,
+      session: session,
     });
     res.status(201).json({ id: createExerciseUser._id });
   } catch (error) {
