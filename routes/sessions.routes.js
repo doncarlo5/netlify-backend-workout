@@ -86,22 +86,6 @@ router.put("/:id", async (req, res, next) => {
         .json({ message: "Comment should be less than 30 characters" });
     }
 
-    if (!date_session) {
-      return res.status(400).json({ message: "Missing date session" });
-    }
-
-    if (!type_session) {
-      return res.status(400).json({ message: "Missing type session" });
-    }
-
-    if (!body_weight) {
-      return res.status(400).json({ message: "Missing body weight" });
-    }
-
-    if (!exercise_user_list) {
-      return res.status(400).json({ message: "Missing exercise user list" });
-    }
-
     const updateSession = await Session.findOneAndUpdate(
       { _id: req.params.id },
       {
