@@ -5,14 +5,8 @@ const exerciseType = new Schema({
     type: String,
     required: true,
   },
-  type: {
-    type: String,
-    enum: ["bar", "free-weight", "cable", "machine"],
-    required: true,
-  },
   advice: {
     type: String,
-    required: true,
   },
   timer: {
     type: Number,
@@ -34,6 +28,10 @@ const exerciseType = new Schema({
     type: String,
     enum: ["Upper A", "Lower", "Upper B"],
     required: true,
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 
