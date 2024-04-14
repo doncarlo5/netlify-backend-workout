@@ -40,8 +40,8 @@ router.post("/", async (req, res, next) => {
       return res.status(400).json({ message: "Missing fields" });
     }
 
-    if (timer !== typeof Number) {
-      return res.status(400).json({ message: "Should be a number" });
+    if (typeof timer !== "number") {
+      return res.status(400).json({ message: "Timer should be a number" });
     }
 
     const createExerciseType = await ExerciseType.create({
@@ -96,14 +96,13 @@ router.put("/:id", async (req, res, next) => {
     } = req.body;
 
     if (
-      (!name || !timer || !repRange1 || !repRange2 || !repRange3, !type_session)
+      type_session &&
+      !["Upper A", "Lower", "Upper B"].includes(type_session)
     ) {
-      return res
-        .status(400)
-        .json({ message: "Trying to update - Missing fields" });
+      return res.status(400).json({ message: "Invalid type session" });
     }
 
-    if (timer !== typeof Number) {
+    if (timer && timer !== typeof Number) {
       return res.status(400).json({ message: "Should be a number" });
     }
 
