@@ -15,6 +15,10 @@ router.use(
   require("./exercise-user.routes")
 );
 
-router.use("/exercise-type", require("./exercise-type.routes"));
+router.use(
+  "/exercise-type",
+  isAuthenticated,
+  require("./exercise-type.routes")
+);
 
 module.exports = router;
