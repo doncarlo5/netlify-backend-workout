@@ -6,12 +6,24 @@ const router = require("express").Router();
 
 router.get("/", async (req, res, next) => {
   try {
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    const sort = req.query.sort || "-createdAt";
+
+    // get sort by if negative then desc else asc
+
+    const sortField = sort[0] === "-" ? sort.substring(1) : sort;
+    const sortOrder = sort[0] === "-" ? "desc" : "asc";
+
     const typeSession = req.query.type_session;
     let query = {};
     if (typeSession) {
       query = { type_session: typeSession };
     }
-    const exerciseUsers = await ExerciseType.find(query);
+    const exerciseUsers = await ExerciseType.find(query)
+      .skip(page * limit)
+      .limit(limit)
+      .sort({ [sortField]: sortOrder });
     res.json(exerciseUsers);
   } catch (error) {
     next(error);
