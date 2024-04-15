@@ -18,8 +18,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-//
-
 // Create an exercise type
 
 router.post("/", async (req, res, next) => {
@@ -34,14 +32,8 @@ router.post("/", async (req, res, next) => {
       type_session,
     } = req.body;
 
-    if (
-      (!name || !timer || !repRange1 || !repRange2 || !repRange3, !type_session)
-    ) {
-      return res.status(400).json({ message: "Missing fields" });
-    }
-
-    if (typeof timer !== "number") {
-      return res.status(400).json({ message: "Timer should be a number" });
+    if (timer && typeof timer !== "number") {
+      return res.status(400).json({ message: "Should be a number" });
     }
 
     const createExerciseType = await ExerciseType.create({
@@ -66,15 +58,9 @@ router.post("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const oneExerciseType = await ExerciseType.findOne({
-      owner: req.user._id,
       _id: req.params.id,
     });
 
-    if (!oneExerciseType) {
-      return res
-        .status(400)
-        .json({ message: "Exercise Type - Unauthorized or not found" });
-    }
     res.json(oneExerciseType);
   } catch (error) {
     next(error);
@@ -102,7 +88,7 @@ router.put("/:id", async (req, res, next) => {
       return res.status(400).json({ message: "Invalid type session" });
     }
 
-    if (timer && timer !== typeof Number) {
+    if (timer && typeof timer !== "number") {
       return res.status(400).json({ message: "Should be a number" });
     }
 
@@ -132,7 +118,6 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const deleteExerciseType = await ExerciseType.findOneAndDelete({
       _id: req.params.id,
-      owner: req.user._id,
     });
 
     if (!deleteExerciseType) {
