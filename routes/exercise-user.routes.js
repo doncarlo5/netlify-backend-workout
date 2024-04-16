@@ -43,7 +43,6 @@ router.get("/", async (req, res, next) => {
       .skip(page * limit)
       .limit(limit)
       .sort({ [sortField]: sortOrder });
-
     res.json(exercises);
   } catch (error) {
     next(error);
