@@ -39,7 +39,12 @@ router.get("/", async (req, res, next) => {
     const sortOrder = sort[0] === "-" ? "desc" : "asc";
 
     const exercises = await ExerciseUser.find(query)
+
+      // populate type and session
+
       .populate("type")
+      .populate("session")
+
       .skip(page * limit)
       .limit(limit)
       .sort({ [sortField]: sortOrder });
@@ -76,10 +81,10 @@ router.post("/", async (req, res, next) => {
   try {
     const { type, weight, rep, comment, session } = req.body;
 
-    if (comment && comment.length > 30) {
+    if (comment && comment.length > 200) {
       return res
         .status(400)
-        .json({ message: "Comment should be less than 30 characters" });
+        .json({ message: "Comment should be less than 200 characters" });
     }
 
     const createExerciseUser = await ExerciseUser.create({
@@ -115,10 +120,10 @@ router.put("/:id", async (req, res, next) => {
         .json({ message: "Trying to update - Weight and Rep not matching" });
     }
 
-    if (comment && comment.length > 30) {
+    if (comment && comment.length > 200) {
       return res
         .status(400)
-        .json({ message: "Comment should be less than 30 characters" });
+        .json({ message: "Comment should be less than 200 characters" });
     }
 
     const updateExerciseUser = await ExerciseUser.findOneAndUpdate(
