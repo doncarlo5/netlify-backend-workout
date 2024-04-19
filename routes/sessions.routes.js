@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Session = require("../models/session.model");
+const ExerciseUser = require("../models/exercise-user.model");
 const isAuthenticated = require("../middleware/is-authenticated");
 
 // Get all sessions by user
@@ -80,10 +81,10 @@ router.put("/:id", async (req, res, next) => {
       comment,
     } = req.body;
 
-    if (comment && comment.length > 30) {
+    if (comment && comment.length > 200) {
       return res
         .status(400)
-        .json({ message: "Comment should be less than 30 characters" });
+        .json({ message: "Comment should be less than 200 characters" });
     }
 
     const updateSession = await Session.findOneAndUpdate(
@@ -105,13 +106,32 @@ router.put("/:id", async (req, res, next) => {
 });
 
 // Delete a session
+// When deleting a session, we also need to delete all exercise-user documents associated with that session with pull method
 
 router.delete("/:id", async (req, res, next) => {
   try {
+    // find session
+    const session = await Session.findOne({ _id: req.params.id });
+
+    // update and delete all exercise-user documents associated with that session with deleteMany
+
+    const deleteExerciseUser = await ExerciseUser.deleteMany({
+      session: req.params.id,
+    });
     const deleteSession = await Session.findOneAndDelete({
       _id: req.params.id,
     });
-    res.json(deleteSession);
+
+    res.json({ deleteExerciseUser, deleteSession });
+
+    // delete session
+
+    // const deleteExerciseUser = await ExerciseUser.deleteMany({
+    //   session: req.params.id,
+    // });
+    // const deleteSession = await Session.findOneAndDelete({
+    //   _id: req.params.id,
+    // });
   } catch (error) {
     next(error);
   }
