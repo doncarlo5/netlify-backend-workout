@@ -23,7 +23,7 @@ const sessionSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    comment: { type: String, maxLength: 30 },
+    comment: { type: String, maxLength: 200 },
   },
   {
     timestamps: true,
