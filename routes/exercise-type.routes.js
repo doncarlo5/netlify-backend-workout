@@ -9,17 +9,18 @@ router.get("/", async (req, res, next) => {
     const page = parseInt(req.query.page) - 1 || 0;
     const limit = parseInt(req.query.limit) || 5;
     const sort = req.query.sort || "-createdAt";
+    const typeSession = req.query.type_session;
 
     // get sort by if negative then desc else asc
 
     const sortField = sort[0] === "-" ? sort.substring(1) : sort;
     const sortOrder = sort[0] === "-" ? "desc" : "asc";
 
-    const typeSession = req.query.type_session;
-    let query = {};
+    let query = { owner: req.user._id };
     if (typeSession) {
-      query = { type_session: typeSession };
+      query.typeSession = typeSession;
     }
+
     const exerciseUsers = await ExerciseType.find(query)
       .skip(page * limit)
       .limit(limit)
@@ -70,6 +71,7 @@ router.post("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const oneExerciseType = await ExerciseType.findOne({
+      owner: req.user._id,
       _id: req.params.id,
     });
 
@@ -130,6 +132,7 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const deleteExerciseType = await ExerciseType.findOneAndDelete({
       _id: req.params.id,
+      owner: req.user._id,
     });
 
     if (!deleteExerciseType) {

@@ -6,21 +6,6 @@ const ExerciseType = require("../models/exercise-type.model");
 
 // Get all exercise-user by his ID
 
-// router.get("/", async (req, res, next) => {
-//   try {
-//     const exerciseUsers = await ExerciseUser.find({
-//       owner: req.user._id,
-//     }).populate("type");
-//     res.json(exerciseUsers);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
-// Get one last exercise-user by his ID and his type
-
-// url : /exercise-user/last?exercise_name=Tractions
-
 router.get("/", async (req, res, next) => {
   try {
     const page = parseInt(req.query.page) - 1 || 0;
