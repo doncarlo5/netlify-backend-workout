@@ -22,3 +22,6 @@ ehthumbs.db
 # VS Code
 .vscode/*
 .vercel
+
+# Local Netlify folder
+.netlify
